@@ -1,0 +1,6 @@
+{
+  "itemGroup.luciddream": "Lucid Dream Simulator",
+  "luciddream.power.list": "Dream powers (100):",
+  "luciddream.power.unknown": "Unknown dream power. Use /dreampower list.",
+  "luciddream.power.used": "Dream power activated: %s"
+}
