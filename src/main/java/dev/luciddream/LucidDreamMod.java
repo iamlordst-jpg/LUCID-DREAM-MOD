@@ -104,7 +104,7 @@ public final class LucidDreamMod {
             case "block_push": { forceTarget(p,3.2,0.8,false); break; }
             case "item_summon": { p.addItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND,1)); break; }
             case "item_shrink": { p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,500,1)); p.addEffect(new MobEffectInstance(MobEffects.JUMP,500,1)); break; }
-            case "item_giant": { p.addEffect(new MobEffectInstance(MobEffects.STRENGTH,500,1)); p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,500,1)); break; }
+            case "item_giant": { p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,500,1)); p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,500,1)); break; }
             case "illusion_decoy": { spawn(EntityType.ALLAY,p); level.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF,p.getX(),p.getY()+1,p.getZ(),35,0.6,0.8,0.6,0.08); break; }
             case "mirror_gate": { teleportForward(p,9); level.sendParticles(net.minecraft.core.particles.ParticleTypes.PORTAL,p.getX(),p.getY()+1,p.getZ(),60,0.7,1,0.7,0.2); break; }
             case "dream_door": { teleportForward(p,5); break; }
@@ -119,10 +119,10 @@ public final class LucidDreamMod {
             case "invisibility": { p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,600,0)); break; }
             case "glow_aura": { p.addEffect(new MobEffectInstance(MobEffects.GLOWING,1200,0)); level.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,p.getX(),p.getY()+1,p.getZ(),40,0.7,1,0.7,0.04); break; }
             case "shadow_form": { p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,240,0)); p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,240,2)); break; }
-            case "shape_wolf": { p.addEffect(new MobEffectInstance(MobEffects.STRENGTH,600,1)); p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,1)); break; }
+            case "shape_wolf": { p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,600,1)); p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,1)); break; }
             case "shape_cat": { p.addEffect(new MobEffectInstance(MobEffects.JUMP,800,2)); p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING,800,0)); break; }
             case "shape_allay": { p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING,600,0)); p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,160,0)); break; }
-            case "giant_form": { p.addEffect(new MobEffectInstance(MobEffects.STRENGTH,600,2)); p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,600,1)); break; }
+            case "giant_form": { p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,600,2)); p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,600,1)); break; }
             case "mini_form": { p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,2)); p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,100,0)); break; }
             case "heal_dream": { p.heal(20); p.getFoodData().setFoodLevel(20); break; }
             case "regen_aura": { p.addEffect(new MobEffectInstance(MobEffects.REGENERATION,600,1)); break; }
@@ -158,7 +158,7 @@ public final class LucidDreamMod {
             case "nightmare_lure": { spawn(EntityType.PHANTOM,p); break; }
             case "banish_phantom": { int removed=0; for(Phantom e:level.getEntitiesOfClass(Phantom.class,p.getBoundingBox().inflate(48))){e.discard();removed++;} p.sendSystemMessage(Component.literal("§dBanished "+removed+" phantom(s).")); break; }
             case "warding_circle": { p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,500,2)); for(Mob e:nearbyMobs(p,5))e.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,160,2)); break; }
-            case "dream_duel": { spawn(EntityType.ZOMBIE,p); p.addEffect(new MobEffectInstance(MobEffects.STRENGTH,300,1)); break; }
+            case "dream_duel": { spawn(EntityType.ZOMBIE,p); p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,300,1)); break; }
             case "terrain_raise": { for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++){var b=p.blockPosition().offset(x,-1,z);if(level.getBlockState(b).isAir())level.setBlockAndUpdate(b,net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState());} break; }
             case "terrain_lower": { for(int x=-1;x<=1;x++)for(int z=-1;z<=1;z++){var b=p.blockPosition().offset(x,-1,z);if(level.getBlockState(b).isSolid())level.destroyBlock(b,true,p);} break; }
             case "flower_bloom": { for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++){var b=p.blockPosition().offset(x,0,z);if(level.getBlockState(b).isAir()&&level.getBlockState(b.below()).isSolid())level.setBlockAndUpdate(b,net.minecraft.world.level.block.Blocks.POPPY.defaultBlockState());} break; }
@@ -175,7 +175,7 @@ public final class LucidDreamMod {
             case "light_orb": { var b=p.blockPosition().relative(p.getDirection(),3);level.setBlockAndUpdate(b,net.minecraft.world.level.block.Blocks.LANTERN.defaultBlockState());level.sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD,b.getX()+0.5,b.getY()+0.5,b.getZ()+0.5,30,0.3,0.3,0.3,0.02); break; }
             case "darkness_drape": { p.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,80,0)); for(Mob e:nearbyMobs(p,7))e.addEffect(new MobEffectInstance(MobEffects.BLINDNESS,100,0)); break; }
             case "soundless_step": { p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,600,1)); p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,100,0)); break; }
-            case "echo_clone": { spawn(EntityType.ARMOR_STAND,p); level.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF,p.getX()+look.x*2,p.getY()+1,p.getZ()+look.z*2,50,0.5,1,0.5,0.05); break; }
+            case "echo_clone": { spawn(EntityType.ALLAY,p); level.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF,p.getX()+look.x*2,p.getY()+1,p.getZ()+look.z*2,50,0.5,1,0.5,0.05); break; }
             case "dream_double": { p.addEffect(new MobEffectInstance(MobEffects.ABSORPTION,600,2)); p.addEffect(new MobEffectInstance(MobEffects.REGENERATION,300,0)); break; }
             case "memory_palace": { p.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED,800,2)); p.addEffect(new MobEffectInstance(MobEffects.LUCK,800,1)); p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION,800,0)); break; }
             case "lucidity_surge": { p.removeEffect(MobEffects.CONFUSION);p.removeEffect(MobEffects.BLINDNESS);p.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);p.addEffect(new MobEffectInstance(MobEffects.REGENERATION,300,1)); break; }
@@ -183,7 +183,7 @@ public final class LucidDreamMod {
             case "dream_anchor": { p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING,1200,0));p.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED,600,1)); break; }
             case "reality_ripple": { for(Mob e:nearbyMobs(p,9)){e.setDeltaMovement(e.getDeltaMovement().add(0,1.3,0));e.addEffect(new MobEffectInstance(MobEffects.GLOWING,200,0));} level.sendParticles(net.minecraft.core.particles.ParticleTypes.PORTAL,p.getX(),p.getY()+1,p.getZ(),90,2,1,2,0.15); break; }
             case "world_flip": { p.setDeltaMovement(p.getDeltaMovement().add(0,1.7,0));p.setYRot(p.getYRot()+180);p.setXRot(-p.getXRot());level.sendParticles(net.minecraft.core.particles.ParticleTypes.REVERSE_PORTAL,p.getX(),p.getY()+1,p.getZ(),80,1,1,1,0.12); break; }
-            case "lucid_overdrive": { p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1200,3));p.addEffect(new MobEffectInstance(MobEffects.JUMP,1200,3));p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,1200,1));p.addEffect(new MobEffectInstance(MobEffects.STRENGTH,1200,1)); break; }
+            case "lucid_overdrive": { p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,1200,3));p.addEffect(new MobEffectInstance(MobEffects.JUMP,1200,3));p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,1200,1));p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,1200,1)); break; }
             default: return 0;
         }
         p.sendSystemMessage(Component.literal("§d✦ §fDream power: §b"+name));
@@ -196,7 +196,7 @@ public final class LucidDreamMod {
         p.sendSystemMessage(Component.literal("§7No safe landing spot in that direction."));
     }
     private static java.util.List<Mob> nearbyMobs(ServerPlayer p,double radius){
-        return p.serverLevel().getEntitiesOfClass(Mob.class,p.getBoundingBox().inflate(radius),e->e.isAlive()&&e!=p);
+        return p.serverLevel().getEntitiesOfClass(Mob.class,p.getBoundingBox().inflate(radius),e->e.isAlive());
     }
     private static void forceTarget(ServerPlayer p,double strength,double lift,boolean pull){
         Vec3 look=p.getLookAngle();
