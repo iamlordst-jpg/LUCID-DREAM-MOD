@@ -52,6 +52,8 @@ public final class LucidDreamMod {
         for (String[] row : rows) POWERS.put(row[0], row[1]);
     }
 
+    public static Map<String, String> getPowers() { return java.util.Collections.unmodifiableMap(POWERS); }
+
     public LucidDreamMod() {
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -116,6 +118,26 @@ public final class LucidDreamMod {
                 level.getEntitiesOfClass(Phantom.class, p.getBoundingBox().inflate(24)).forEach(Entity::discard); break;
             case "dream_duel":
                 spawn(EntityType.ENDERMAN, p); break;
+            case "telekinesis": case "block_pull": case "block_push": {
+                Entity target = level.getEntities(p, p.getBoundingBox().expandTowards(look.scale(14)).inflate(2.0), e -> e instanceof Mob && p.hasLineOfSight(e))
+                    .stream().filter(e -> {
+                        Vec3 toward = e.position().add(0, e.getBbHeight() * 0.5, 0).subtract(p.getEyePosition()).normalize();
+                        return look.dot(toward) > 0.94;
+                    }).min(java.util.Comparator.comparingDouble(e -> e.distanceToSqr(p))).orElse(null);
+                if (target != null) {
+                    Vec3 force;
+                    if (id.equals("block_pull")) force = p.position().subtract(target.position()).normalize().scale(1.8).add(0, 0.35, 0);
+                    else if (id.equals("block_push")) force = look.scale(2.2).add(0, 0.65, 0);
+                    else force = look.scale(2.8).add(0, 0.8, 0);
+                    target.setDeltaMovement(force);
+                    target.hurtMarked = true;
+                    target.hasImpulse = true;
+                    p.sendSystemMessage(Component.literal("§d✦ §fTelekinetic force connected with §b" + target.getName().getString()));
+                } else {
+                    p.sendSystemMessage(Component.literal("§7Aim directly at a mob within 14 blocks to affect it."));
+                }
+                break;
+            }
             case "sonic_wave": case "dream_pulse": case "reality_ripple": case "gravity_well":
                 for (Entity e : level.getEntities(p, p.getBoundingBox().inflate(8), e -> e instanceof Mob)) {
                     e.push(look.x * 1.5, 0.6, look.z * 1.5);
