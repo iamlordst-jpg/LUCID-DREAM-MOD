@@ -10,28 +10,20 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.monster.Enderman;
 import net.minecraft.world.entity.monster.Phantom;
-import net.minecraft.world.entity.monster.Witch;
-import net.minecraft.world.entity.animal.Allay;
-import net.minecraft.world.entity.animal.Cat;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashMap;
-import java.util.Random;
 
 @Mod(LucidDreamMod.MOD_ID)
 public final class LucidDreamMod {
     public static final String MOD_ID = "luciddream";
-    private static final Random RANDOM = new Random();
     private static final Map<String, String> POWERS = new LinkedHashMap<>();
 
     static {
@@ -88,7 +80,7 @@ public final class LucidDreamMod {
     private static int activate(ServerPlayer p, String id) {
         String name = POWERS.get(id);
         if (name == null) { p.sendSystemMessage(Component.literal("§cUnknown power. Try /dreampower list")); return 0; }
-        Level level = p.serverLevel();
+        ServerLevel level = p.serverLevel();
         Vec3 look = p.getLookAngle();
         switch (id) {
             case "flight": case "levitation": case "zero_gravity": case "gravity_flip":
