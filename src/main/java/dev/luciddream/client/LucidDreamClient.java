@@ -19,7 +19,7 @@ public final class LucidDreamClient {
     public static final KeyMapping PREVIOUS_POWER = new KeyMapping(
         "key.luciddream.previous_power", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_BRACKET, "key.categories.luciddream");
     public static final KeyMapping TELEKINESIS = new KeyMapping(
-        "key.luciddream.telekinesis", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_T, "key.categories.luciddream");
+        "key.luciddream.telekinesis", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, "key.categories.luciddream");
 
     @SubscribeEvent
     public static void registerKeys(RegisterKeyMappingsEvent event) {
