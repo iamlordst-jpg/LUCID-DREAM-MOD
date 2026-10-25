@@ -13,6 +13,14 @@ A surreal sandbox mod focused on lucid-dream-inspired reality control, dream exp
 
 The 100 IDs are registered in the command catalogue; the first implementation pass gives specialized mechanics to core powers and a safe visual/status response to the remaining IDs. The custom dream dimension and bespoke animated entity roster are the next content layer, not falsely represented as already finished.
 
+## In-game controls
+- **K** — open the touch-friendly Dream Power Deck.
+- **R** — cast the currently selected power.
+- **[ / ]** — cycle through the power catalogue.
+- **G** — use Telekinesis on the mob you're aiming at (within 14 blocks and line of sight).
+- All keys are configurable under **Options → Controls → Lucid Dream Simulator**.
+- In the deck, tap a power's button to cast it directly; use the page buttons to browse the full catalogue.
+
 ## Build
 Install JDK 17 and Gradle 8.8, then run `gradle build --no-daemon`. The JAR is written to `build/libs/`. GitHub Actions runs the same build on pushes and pull requests.
 
