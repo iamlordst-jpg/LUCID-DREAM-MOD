@@ -105,7 +105,7 @@ public final class LucidDreamMod {
             case "item_summon": { p.addItem(new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.DIAMOND,1)); break; }
             case "item_shrink": { p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED,500,1)); p.addEffect(new MobEffectInstance(MobEffects.JUMP,500,1)); break; }
             case "item_giant": { p.addEffect(new MobEffectInstance(MobEffects.STRENGTH,500,1)); p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,500,1)); break; }
-            case "illusion_decoy": { spawn(EntityType.ARMOR_STAND,p); level.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF,p.getX(),p.getY()+1,p.getZ(),35,0.6,0.8,0.6,0.08); break; }
+            case "illusion_decoy": { spawn(EntityType.ALLAY,p); level.sendParticles(net.minecraft.core.particles.ParticleTypes.POOF,p.getX(),p.getY()+1,p.getZ(),35,0.6,0.8,0.6,0.08); break; }
             case "mirror_gate": { teleportForward(p,9); level.sendParticles(net.minecraft.core.particles.ParticleTypes.PORTAL,p.getX(),p.getY()+1,p.getZ(),60,0.7,1,0.7,0.2); break; }
             case "dream_door": { teleportForward(p,5); break; }
             case "pocket_room": { p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,1200,4)); p.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,200,0)); break; }
